@@ -1,4 +1,4 @@
-# 个人知识整理
+# 个人知识整理 - gitbook
 
 ## 大纲：
 - [ ] 基础知识
@@ -10,3 +10,6 @@
 - [ ] 服务架构
 - [ ] 源码摘读
 - [ ] 其他
+
+##### PS：
+This is a book powered by [GitBook](https://github.com/GitbookIO/gitbook).
