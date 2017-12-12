@@ -1,8 +1,22 @@
 {
+  "title": "个人知识整理",
+  "author": "Hunny—LH",
   "plugins": [
+    "-search",
+    "-highlight",
+    "search-plus@^0.0.11",
     "puml",
     "mermaid-gb3",
     "splitter",
-    "anchors"
-  ]
+    "anchors",
+    "prism@^2.1.0",
+    "prism-themes@^0.0.2",
+  ],
+  "pluginsConfig": {
+    "prism": {
+      "css": [
+        "prism-themes/themes/prism-base16-ateliersulphurpool.light.css"
+      ]
+    }
+  }
 }
