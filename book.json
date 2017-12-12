@@ -1,0 +1,8 @@
+{
+  "plugins": [
+    "puml",
+    "mermaid-gb3",
+    "splitter",
+    "anchors"
+  ]
+}
