@@ -9,6 +9,3 @@
 * JavaScript
 * Python
 * Go(待定)
-    
-其中作者的主要工作语言为Java。但是工作之余，最喜欢的语言是 JavaScript 及 Kotlin。
-
