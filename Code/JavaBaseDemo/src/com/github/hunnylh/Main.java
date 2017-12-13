@@ -1,7 +1,7 @@
 package com.github.hunnylh;
 
 /**
- * @author <a href="mailto: 393803588@qq.com">刘涵(Hanl)</a>
+ * @author <a href="mailto:393803588@qq.com">刘涵(Hanl)</a>
  * By 2017/12/12
  */
 public class Main {
@@ -17,7 +17,7 @@ public class Main {
      *     <li>args参数列表：</li>
      * </ul>
      *
-     * @param args
+     * @param args 命令行参数
      */
     public static void main(String[] args) {
         System.out.println("I`m a Main Class.");
