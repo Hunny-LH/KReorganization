@@ -12,10 +12,15 @@ public class StreamApi {
 
     public static void main(String[] args) {
         perfInvoke(() -> {
-            Stream.generate(() -> 1)
-                    .limit(100000)
-                    .map(integer -> integer + 1)
+            Stream.of(1)
+                    .limit(10)
                     .forEach(System.out::println);
         });
+//        perfInvoke(() -> {
+//            Stream.generate(() -> 1)
+//                    .limit(100000)
+//                    .map(integer -> integer + 1)
+//                    .forEach(System.out::println);
+//        });
     }
 }
