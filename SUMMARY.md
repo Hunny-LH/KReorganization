@@ -22,3 +22,4 @@
 * [七、其他]()
     * [7.1、博文整理](Blogs/README.md)
     * [7.2、读书笔记](Notes/README.md)
+        * [深入理解 JAVA 虚拟机 -- Java 内存区域）](Notes/JVMBook/jvmNote1.md)
