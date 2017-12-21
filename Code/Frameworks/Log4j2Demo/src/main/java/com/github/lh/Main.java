@@ -11,5 +11,14 @@ public class Main {
 
     public static void main(String[] args) {
         log.info("Hello Liuhan");
+        A a = new A();
+        a.say("liuhand");
+    }
+
+    static class A {
+
+        public void say(String msg) {
+            System.out.println(msg);
+        }
     }
 }
