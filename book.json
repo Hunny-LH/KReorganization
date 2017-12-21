@@ -13,7 +13,8 @@
     "prism-themes@^0.0.2",
     "codeblock-filename",
     "toggle-chapters",
-    "tbfed-pagefooter"
+    "tbfed-pagefooter",
+    "todo"
   ],
   "pluginsConfig": {
     "prism": {
