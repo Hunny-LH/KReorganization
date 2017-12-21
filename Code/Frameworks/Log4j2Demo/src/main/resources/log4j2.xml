@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+
+    <properties>
+        <property name="LOG_HOME">/log/fish</property>
+        <!-- 日志备份目录 -->
+        <property name="BACKUP_HOME">{LOG_HOME}/backup</property>
+        <property name="STAT_NAME">stat</property>
+        <property name="SERVER_NAME">global</property>
+    </properties>
+    <Appenders>
+        <!-- 定义控制台输出 -->
+        <Console name="Console" target="SYSTEM_OUT" follow="true">
+            <PatternLayout pattern="%date{yyyy-MM-dd HH:mm:ss.SSS} %level [%thread][%file:%line] - %msg%n" />
+        </Console>
+    </Appenders>
+
+    <loggers>
+        <AsyncLogger name="AsyncLogger" level="trace" includeLocation="true">
+            <appender-ref ref="Console"/>
+        </AsyncLogger>
+
+        <Root level="off" >
+            <appender-ref ref="Console"/>
+        </Root>
+    </loggers>
+</Configuration>
