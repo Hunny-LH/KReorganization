@@ -1,0 +1,7 @@
+CREATE TABLE t_user
+(
+  id BIGINT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+  username VARCHAR(20) NOT NULL,
+  password VARCHAR(20),
+  create_time DATETIME
+);
