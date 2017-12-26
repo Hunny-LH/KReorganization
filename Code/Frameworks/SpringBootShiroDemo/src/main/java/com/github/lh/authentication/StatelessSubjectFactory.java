@@ -13,7 +13,9 @@ public class StatelessSubjectFactory extends DefaultWebSubjectFactory {
     @Override
     public Subject createSubject(SubjectContext context) {
         // 不创建session
-        context.setSessionCreationEnabled(false);
+//        if (context.getAuthenticationToken() instanceof JwtToken) {
+//            context.setSessionCreationEnabled(false);
+//        }
         return super.createSubject(context);
     }
 }

@@ -1,9 +1,12 @@
 package com.github.lh.authentication;
 
 import com.github.lh.dao.UserRepo;
+import org.apache.shiro.authc.pam.FirstSuccessfulStrategy;
+import org.apache.shiro.authc.pam.ModularRealmAuthenticator;
 import org.apache.shiro.mgt.DefaultSecurityManager;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -31,21 +34,19 @@ public class ShiroConfig {
         sfb.setSecurityManager(securityManager);
 
         sfb.setLoginUrl("/login");
-        sfb.setSuccessUrl("/index");
+        sfb.setSuccessUrl("/login");
         sfb.setUnauthorizedUrl("/login");
 
         Map<String, Filter> filters = new HashMap<>(2);
+        filters.put("authc", new FormAuthenticationFilter());
         filters.put("jwt", new JwtFilter());
-
         sfb.setFilters(filters);
 
         Map<String, String> filterChains = new HashMap<>(10);
         filterChains.put("/static/**", "anon");
-        filterChains.put("/login", "authc");
-        filterChains.put("/", "jwt");
-        filterChains.put("/index", "jwt");
-        filterChains.put("/user/**", "jwt");
-
+        // 需要登录后跳转， 这里需要设置成authc
+        filterChains.put("/login", "anon");
+        filterChains.put("/users**", "jwt");
 
         sfb.setFilterChainDefinitionMap(filterChains);
 
@@ -56,7 +57,13 @@ public class ShiroConfig {
     public SecurityManager securityManager() {
         DefaultSecurityManager securityManager = new DefaultWebSecurityManager();
         securityManager.setSubjectFactory(new StatelessSubjectFactory());
-        securityManager.setRealms(Arrays.asList(jwtRealm(), userRealm()));
+        securityManager.setRealms(Arrays.asList(userRealm(), jwtRealm()));
+
+        ModularRealmAuthenticator authenticator = new ModularRealmAuthenticator();
+        authenticator.setRealms(Arrays.asList(userRealm(), jwtRealm()));
+        authenticator.setAuthenticationStrategy(new FirstSuccessfulStrategy());
+
+        securityManager.setAuthenticator(authenticator);
         return securityManager;
     }
 

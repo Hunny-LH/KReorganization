@@ -1,11 +1,11 @@
 package com.github.lh.controller;
 
 import com.github.lh.authentication.JwtFilter;
-import com.github.lh.authentication.UpcToken;
 import com.github.lh.common.JwtUtils;
 import com.github.lh.dao.UserRepo;
 import com.github.lh.domain.User;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,11 +27,11 @@ public class DefaultController {
     @Autowired
     UserRepo userRepo;
 
-    @GetMapping({"/", "/index"})
-    public String index(Model model) {
-        model.addAttribute("user", SecurityUtils.getSubject().getPrincipal());
-        return "index";
-    }
+//    @GetMapping({"/", "/index"})
+//    public String index(Model model) {
+//        model.addAttribute("user", SecurityUtils.getSubject().getPrincipal());
+//        return "index";
+//    }
 
     @GetMapping("/login")
     public String loginPage() {
@@ -40,7 +40,7 @@ public class DefaultController {
 
     @PostMapping("/login")
     @ResponseBody
-    public Map<String, String> login(UpcToken token) {
+    public Map<String, String> login(UsernamePasswordToken token) {
         Map<String, String> res = new HashMap<>(1);
         try {
             // 使用用户名密码登录
@@ -55,7 +55,7 @@ public class DefaultController {
 
     private String buildJwt() throws Exception {
         User user = (User) SecurityUtils.getSubject().getPrincipal();
-        return JwtUtils.createJWT("app", user.getUsername(), 3600);
+        return JwtUtils.createJWT("app", user.getUsername(), 60 * 60 * 1000);
     }
 
     @GetMapping("/logout")
@@ -67,7 +67,10 @@ public class DefaultController {
 
     @GetMapping("/users")
     @ResponseBody
-    public List<User> selectUsers() {
-        return userRepo.findAll();
+    public Map<String, Object> selectUsers() {
+        Map<String, Object> res = new HashMap<>(2);
+        res.put("user", SecurityUtils.getSubject().getPrincipal());
+        res.put("users", userRepo.findAll());
+        return res;
     }
 }

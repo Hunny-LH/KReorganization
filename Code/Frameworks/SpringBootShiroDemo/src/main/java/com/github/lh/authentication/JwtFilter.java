@@ -53,10 +53,12 @@ public class JwtFilter extends AccessControlFilter {
         if (request instanceof HttpServletRequest) {
             HttpServletRequest httpServletRequest = (HttpServletRequest) request;
             // 先从cookie获取jwt
-            jwt = Stream.of(httpServletRequest.getCookies())
-                    .filter(cookie1 -> DEFAULT_JWT_PARAM.equalsIgnoreCase(cookie1.getName()))
-                    .map(Cookie::getValue)
-                    .findAny().orElse(null);
+            if (httpServletRequest.getCookies() != null) {
+                jwt = Stream.of(httpServletRequest.getCookies())
+                        .filter(cookie1 -> DEFAULT_JWT_PARAM.equalsIgnoreCase(cookie1.getName()))
+                        .map(Cookie::getValue)
+                        .findAny().orElse(null);
+            }
             if (StringUtils.hasText(jwt)) {
                 return jwt;
             }
