@@ -25,23 +25,29 @@
 <script th:src="@{https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js}"></script>
 <script>
     $("#login-form").submit(function (e) {
+        console.log($(e.target).serialize());
         fetch("/login", {
             method: 'POST',
+            headers: {
+                "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+            },
             body: $(e.target).serialize()
         }).then(function (resp) {
             return resp.json()
-        }).then(function (value) {
-            alert(value);
-            window.localStorage.setItem('_jwt', value._jwt);
-            window.location.href = "/index";
+        }).then(function (data) {
+            console.log(data);
+            window.localStorage.setItem('_jwt', data._jwt);
         });
         return false;
     });
 
-    $("#select").on('click', function(e) {
-        fetch('/users')
-            .then(function (resp) {
-                $('#result').html(resp.json())
+    $("#select").on('click', function (e) {
+        const jwt = window.localStorage.getItem('_jwt');
+        fetch('/users?_jwt=' + jwt)
+            .then(function (resp) { return resp.json() })
+            .then(function (data) {
+                console.log(data);
+                $('#result').html(data)
             })
     });
 

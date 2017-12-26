@@ -2,7 +2,6 @@ package com.github.lh.authentication;
 
 import com.github.lh.common.JwtUtils;
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;

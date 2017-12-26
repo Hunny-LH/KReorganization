@@ -2,10 +2,7 @@ package com.github.lh.authentication;
 
 import com.github.lh.dao.UserRepo;
 import com.github.lh.domain.User;
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.AuthenticationInfo;
-import org.apache.shiro.authc.AuthenticationToken;
-import org.apache.shiro.authc.SimpleAuthenticationInfo;
+import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
@@ -23,6 +20,16 @@ public class UserRealm extends AuthorizingRealm {
 
     public UserRealm(UserRepo userRepo) {
         this.userRepo = userRepo;
+    }
+
+    /**
+     * 支持的token类型
+     *
+     * @return
+     */
+    @Override
+    public Class getAuthenticationTokenClass() {
+        return UsernamePasswordToken.class;
     }
 
 
@@ -46,12 +53,12 @@ public class UserRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
-        UpcToken authToken = (UpcToken) token;
+        UsernamePasswordToken authToken = (UsernamePasswordToken) token;
         User user = userRepo.getUserByUsername(authToken.getUsername());
         if (user == null) {
             throw new AuthenticationException("User not exist");
         }
-        if (Objects.equals(user.getPassword(), authToken.getPwd())) {
+        if (!Objects.equals(user.getPassword(), String.valueOf(authToken.getPassword()))) {
             throw new AuthenticationException("Password error");
         }
         user.setPassword(null);
