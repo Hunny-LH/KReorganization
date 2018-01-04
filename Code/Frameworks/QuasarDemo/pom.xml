@@ -38,11 +38,10 @@
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin
-                </artifactId> <!-- Run with "mvn compile maven-dependency-plugin:properties exec:exec" -->
+                <artifactId>exec-maven-plugin</artifactId> <!-- Run with "mvn compile maven-dependency-plugin:properties exec:exec" -->
                 <version>1.3.2</version>
                 <configuration>
-                    <mainClass>testgrp.QuasarHelloWorld</mainClass>
+                    <mainClass>com.github.lh.Main</mainClass>
                     <workingDirectory>target/classes</workingDirectory>
                     <executable>java</executable>
                     <arguments>
